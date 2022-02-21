@@ -60,33 +60,22 @@ public class OrderController {
                 needUpdate = true;
             }
 
-            if (order.getPrice() > 0)
+            if (StringUtils.hasLength(order.getPositionToken()))
             {
-                existBook.setPrice(order.getPrice());
+                existOrder.setPositionToken(order.getPositionToken());
                 needUpdate = true;
             }
 
-            if (StringUtils.hasLength(order.getImgUrl()))
-            {
-                existBook.setImgUrl(order.getImgUrl());
-                needUpdate = true;
-            }
 
-            if (order.getAuthor() != null)
+            if (order.getCartHeard() != null)
             {
-                existBook.setAuthor(order.getAuthor());
-                needUpdate = true;
-            }
-
-            if (order.getTheme() != null)
-            {
-                existBook.setTheme(order.getTheme());
+                existOrder.setCartHeard(order.getCartHeard());
                 needUpdate = true;
             }
 
             if (needUpdate)
             {
-                orderRepository.save(existBook);
+                orderRepository.save(existOrder);
             }
         }
     }
