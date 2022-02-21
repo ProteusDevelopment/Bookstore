@@ -1,22 +1,22 @@
-package com.devcher.bookstore.books;
+package com.devcher.bookstore.books.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Authors
+public class Author
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String name;
 
-	public Authors()
+	public Author()
 	{
 
 	}
 
-	public Authors(Long id, String name)
+	public Author(Long id, String name)
 	{
 		this.id = id;
 		this.name = name;
