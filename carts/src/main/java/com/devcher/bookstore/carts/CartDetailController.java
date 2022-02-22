@@ -25,7 +25,7 @@ public class CartDetailController
     @PostMapping("/")
     public void createNewCart(@RequestBody CartDetail cartDetail)
     {
-        cartsDetailRepository.save(cart);
+        cartsDetailRepository.save(cartDetail);
     }
 
     @GetMapping("/{id}")
@@ -38,7 +38,7 @@ public class CartDetailController
     public void patchCart(@PathParam("id") Long id,
                           @RequestBody CartDetail cartDetail)
     {
-        Optional<CartDetail> optionalCart = cartsDetailRepository.findById(id);
+        Optional<CartDetail> optionalCartDetail = cartsDetailRepository.findById(id);
 
         if (optionalCartDetail.isPresent())
         {
@@ -67,7 +67,7 @@ public class CartDetailController
 
             if (needUpdate)
             {
-                cartsDetailRepository.save(existCart);
+                cartsDetailRepository.save(existCartDetail);
             }
         }
     }
