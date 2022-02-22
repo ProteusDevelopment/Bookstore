@@ -2,18 +2,16 @@ package com.devcher.bookstore.payments;
 
 
 import com.devcher.bookstore.payments.model.Payment;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api/payment")
 public class PaymentController {
     @Autowired
     private PaymentRepository paymentRepository;
@@ -40,60 +38,37 @@ public class PaymentController {
     public void patchPayment(@PathParam("id") Long id,
                           @RequestBody Payment payment)
     {
-        Optional<Payment> optionalBook = paymentRepository.findById(id);
+        Optional<Payment> optionalPayment = paymentRepository.findById(id);
 
-        if (optionalBook.isPresent())
+        if (optionalPayment.isPresent())
         {
-            Payment existBook = optionalBook.get();
+            Payment existPayment = optionalPayment.get();
 
             boolean needUpdate = false;
 
-            if (StringUtils.hasLength(book.getName()))
+            if (payment.getOrder() != null)
             {
-                existBook.setName(book.getName());
+                existPayment.setOrder(payment.getOrder());
                 needUpdate = true;
             }
 
-            if (StringUtils.hasLength(book.getDescription()))
+            if (StringUtils.hasLength(payment.getStatus()))
             {
-                existBook.setDescription(book.getDescription());
-                needUpdate = true;
-            }
-
-            if (book.getPrice() > 0)
-            {
-                existBook.setPrice(book.getPrice());
-                needUpdate = true;
-            }
-
-            if (StringUtils.hasLength(book.getImgUrl()))
-            {
-                existBook.setImgUrl(book.getImgUrl());
-                needUpdate = true;
-            }
-
-            if (book.getAuthor() != null)
-            {
-                existBook.setAuthor(book.getAuthor());
-                needUpdate = true;
-            }
-
-            if (book.getTheme() != null)
-            {
-                existBook.setTheme(book.getTheme());
+                existPayment.setStatus(payment.getStatus());
                 needUpdate = true;
             }
 
             if (needUpdate)
             {
-                booksRepository.save(existBook);
+                paymentRepository.save(existPayment);
             }
+
         }
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathParam("id") Long id)
     {
-        booksRepository.deleteById(id);
+        paymentRepository.deleteById(id);
     }
 }
