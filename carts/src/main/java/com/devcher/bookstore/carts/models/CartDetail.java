@@ -1,6 +1,7 @@
 package com.devcher.bookstore.carts.models;
 
 import javax.persistence.*;
+import java.awt.print.Book;
 
 @Entity
 public class CartDetail {
