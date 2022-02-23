@@ -2,41 +2,24 @@ package com.devcher.bookstore.users.model;
 
 import javax.persistence.*;
 
-@Entity
-public class UserRegistrationDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class UserRegistrationDto
+{
     private String name;
     private String email;
     private String phone;
     private String password;
-    private String confirmPassword;
-    private String addres;
-    private String role;
+    private String address;
 
-    public UserRegistrationDto(Long id, String name, String email, String phone, String password, String confirmPassword, String addres, String role) {
-        this.id = id;
+    public UserRegistrationDto(String name, String email, String phone, String password, String address) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.addres = addres;
-        this.role = role;
+        this.address = address;
     }
 
     public UserRegistrationDto() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -71,27 +54,11 @@ public class UserRegistrationDto {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getAddress() {
+        return address;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getAddres() {
-        return addres;
-    }
-
-    public void setAddres(String addres) {
-        this.addres = addres;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
