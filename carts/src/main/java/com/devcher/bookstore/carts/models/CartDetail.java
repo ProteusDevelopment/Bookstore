@@ -14,9 +14,7 @@ public class CartDetail {
     @JoinColumn(name = "cartHeader")
     private CartHeader cartHeader;
 
-    @ManyToOne
-    @JoinColumn(name = "book")
-    private Book book;
+    private Long book;
 
 
 
@@ -24,7 +22,7 @@ public class CartDetail {
 
     }
 
-    public CartDetail(Long id, Integer count, CartHeader cartHeader, Book book) {
+    public CartDetail(Long id, Integer count, CartHeader cartHeader, Long book) {
         this.id = id;
         this.count = count;
         this.cartHeader = cartHeader;
@@ -43,7 +41,7 @@ public class CartDetail {
         return cartHeader;
     }
 
-    public Book getBook() {
+    public Long getBook() {
         return book;
     }
 
@@ -59,7 +57,7 @@ public class CartDetail {
         this.cartHeader = cartHeader;
     }
 
-    public void setBook(Book book) {
+    public void setBook(Long book) {
         this.book = book;
     }
 }

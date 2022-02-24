@@ -1,86 +1,84 @@
 package com.devcher.bookstore.orders;
 
 
-import com.devcher.bookstore.orders.model.Order;
+import com.devcher.bookstore.orders.model.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/orders")
 public class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
 
-    @GetMapping("/")
-    public List<Order> getAllOrders()
+    @GetMapping("/admin/orders")
+    public List<OrderEntity> getAllOrders()
     {
         return orderRepository.findAll();
     }
 
-    @PostMapping("/")
-    public void createNewOrder(@RequestBody Order order)
+    @PostMapping("/user/orders")
+    public void createNewOrder(@RequestBody OrderEntity orderEntity)
     {
-        orderRepository.save(order);
+        orderRepository.save(orderEntity);
     }
 
-    @GetMapping("/{id}")
-    public Order getOrder(@PathParam("id") Long id)
+    @GetMapping("/user/orders/{id}")
+    public OrderEntity getOrder(@PathParam("id") Long id)
     {
         return orderRepository.findById(id).orElse(null);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/user/orders/{id}")
     public void patchOrder(@PathParam("id") Long id,
-                          @RequestBody Order order)
+                          @RequestBody OrderEntity orderEntity)
     {
-        Optional<Order> optionalOrder = orderRepository.findById(id);
+        Optional<OrderEntity> optionalOrder = orderRepository.findById(id);
 
         if (optionalOrder.isPresent())
         {
-            Order existOrder = optionalOrder.get();
+            OrderEntity existOrderEntity = optionalOrder.get();
 
             boolean needUpdate = false;
 
-            if (StringUtils.hasLength(order.getOrderTime()))
+            if (StringUtils.hasLength(orderEntity.getOrderTime()))
             {
-                existOrder.setOrderTime(order.getOrderTime());
+                existOrderEntity.setOrderTime(orderEntity.getOrderTime());
                 needUpdate = true;
             }
 
-            if (StringUtils.hasLength(order.getStatus()))
+            if (StringUtils.hasLength(orderEntity.getStatus()))
             {
-                existOrder.setStatus(order.getStatus());
+                existOrderEntity.setStatus(orderEntity.getStatus());
                 needUpdate = true;
             }
 
-            if (StringUtils.hasLength(order.getPositionToken()))
+            if (StringUtils.hasLength(orderEntity.getPositionToken()))
             {
-                existOrder.setPositionToken(order.getPositionToken());
+                existOrderEntity.setPositionToken(orderEntity.getPositionToken());
                 needUpdate = true;
             }
 
 
-            if (order.getCartHeard() != null)
+            if (orderEntity.getCartHeader() != null)
             {
-                existOrder.setCartHeard(order.getCartHeard());
+                existOrderEntity.setCartHeader(orderEntity.getCartHeader());
                 needUpdate = true;
             }
 
             if (needUpdate)
             {
-                orderRepository.save(existOrder);
+                orderRepository.save(existOrderEntity);
             }
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/orders/{id}")
     public void deleteBook(@PathParam("id") Long id)
     {
         orderRepository.deleteById(id);

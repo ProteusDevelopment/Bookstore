@@ -11,30 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserRepository usersRepository;
 
-    @GetMapping("/")
+    @GetMapping("/admin/users")
     public List<User> getAllUsers()
     {
         return usersRepository.findAll();
     }
 
-    @PostMapping("/")
-    public void createNewUser(@RequestBody User user)
-    {
-        usersRepository.save(user);
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("/user/users/{id}")
     public User getUser(@PathParam("id") Long id)
     {
         return usersRepository.findById(id).orElse(null);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/user/users/{id}")
     public void patchUser(@PathParam("id") Long id,
                           @RequestBody User user)
     {
@@ -90,7 +83,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/users/{id}")
     public void deleteUser(@PathParam("id") Long id)
     {
         usersRepository.deleteById(id);

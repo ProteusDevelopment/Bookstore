@@ -11,31 +11,30 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/books")
 public class BookController
 {
 	@Autowired
 	private BookRepository booksRepository;
 
-	@GetMapping("/")
+	@GetMapping("/user/books")
 	public List<Book> getAllBooks()
 	{
 		return booksRepository.findAll();
 	}
 
-	@PostMapping("/")
+	@PostMapping("/admin/books")
 	public void createNewBook(@RequestBody Book book)
 	{
 		booksRepository.save(book);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/user/books/{id}")
 	public Book getBook(@PathParam("id") Long id)
 	{
 		return booksRepository.findById(id).orElse(null);
 	}
 
-	@PatchMapping("/{id}")
+	@PatchMapping("/admin/books/{id}")
 	public void patchBook(@PathParam("id") Long id,
 	                      @RequestBody Book book)
 	{
@@ -90,7 +89,7 @@ public class BookController
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/admin/books/{id}")
 	public void deleteBook(@PathParam("id") Long id)
 	{
 		booksRepository.deleteById(id);

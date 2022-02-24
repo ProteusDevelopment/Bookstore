@@ -2,22 +2,21 @@ package com.devcher.bookstore.payments.model;
 
 
 import javax.persistence.*;
-import javax.persistence.criteria.Order;
 
 @Entity
-public class Payment {
+public class Payment
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-    @ManyToOne
-    @JoinColumn(name = "author")
-    private Order order;
 
-    public Payment(Long id, String status, Order order) {
+    private Long orderEntity;
+
+    public Payment(Long id, String status, Long orderEntity) {
         this.id = id;
         this.status = status;
-        this.order = order;
+        this.orderEntity = orderEntity;
     }
 
     public Payment() {
@@ -32,8 +31,8 @@ public class Payment {
         return status;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderEntity() {
+        return orderEntity;
     }
 
     public void setId(Long id) {
@@ -44,7 +43,7 @@ public class Payment {
         this.status = status;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderEntity(Long orderEntity) {
+        this.orderEntity = orderEntity;
     }
 }

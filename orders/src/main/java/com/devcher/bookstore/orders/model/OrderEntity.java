@@ -1,12 +1,10 @@
 package com.devcher.bookstore.orders.model;
 
-import antlr.Token;
-
 import javax.persistence.*;
-import java.sql.Time;
 
 @Entity
-public class Order {
+public class OrderEntity
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,20 +14,18 @@ public class Order {
     private String positionToken;
 
 
-    @ManyToOne
-    @JoinColumn(name = "cartHeard")
-    private CartHeard cartHeard;
+    private Long cartHeader;
 
 
-    public Order(Long id, String orderTime, String status, String positionToken, CartHeard cartHeard) {
+    public OrderEntity(Long id, String orderTime, String status, String positionToken, Long cartHeader) {
         this.id = id;
         this.orderTime = orderTime;
         this.status = status;
         this.positionToken = positionToken;
-        this.cartHeard = cartHeard;
+        this.cartHeader = cartHeader;
     }
 
-    public Order() {
+    public OrderEntity() {
 
     }
 
@@ -49,8 +45,8 @@ public class Order {
         return positionToken;
     }
 
-    public CartHeard getCartHeard() {
-        return cartHeard;
+    public Long getCartHeader() {
+        return cartHeader;
     }
 
     public void setId(Long id) {
@@ -69,7 +65,7 @@ public class Order {
         this.positionToken = positionToken;
     }
 
-    public void setCartHeard(CartHeard cartHeard) {
-        this.cartHeard = cartHeard;
+    public void setCartHeader(Long cartHeader) {
+        this.cartHeader = cartHeader;
     }
 }

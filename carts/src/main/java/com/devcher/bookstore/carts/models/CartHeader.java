@@ -9,15 +9,13 @@ public class CartHeader {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user")
-    private User user;
+    private Long user;
 
     public CartHeader() {
 
     }
 
-    public CartHeader(Long id, User user) {
+    public CartHeader(Long id, Long user) {
         this.id = id;
         this.user = user;
     }
@@ -26,7 +24,7 @@ public class CartHeader {
         return id;
     }
 
-    public User getUser() {
+    public Long getUser() {
         return user;
     }
 
@@ -34,7 +32,7 @@ public class CartHeader {
         this.id = id;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 }

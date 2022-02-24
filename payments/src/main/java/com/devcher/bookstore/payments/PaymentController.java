@@ -11,30 +11,29 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/payment")
 public class PaymentController {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @GetMapping("/")
+    @GetMapping("/admin/payments")
     public List<Payment> getAllPayment()
     {
         return paymentRepository.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping("/user/payments")
     public void createNewPayment(@RequestBody Payment payment)
     {
         paymentRepository.save(payment);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/payments/{id}")
     public Payment getPayment(@PathParam("id") Long id)
     {
         return paymentRepository.findById(id).orElse(null);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/admin/payments/{id}")
     public void patchPayment(@PathParam("id") Long id,
                           @RequestBody Payment payment)
     {
@@ -46,9 +45,9 @@ public class PaymentController {
 
             boolean needUpdate = false;
 
-            if (payment.getOrder() != null)
+            if (payment.getOrderEntity() != null)
             {
-                existPayment.setOrder(payment.getOrder());
+                existPayment.setOrderEntity(payment.getOrderEntity());
                 needUpdate = true;
             }
 
@@ -66,7 +65,7 @@ public class PaymentController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/payments/{id}")
     public void deleteBook(@PathParam("id") Long id)
     {
         paymentRepository.deleteById(id);
