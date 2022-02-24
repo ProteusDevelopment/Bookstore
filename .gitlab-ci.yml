@@ -5,9 +5,9 @@ services:
 variables:
   DOCKER_DRIVER: overlay
   SPRING_PROFILES_ACTIVE: gitlab-ci
-  USER_GITLAB: sanjaybsm
-  APP_NAME: springbootgitlab
-  REPO: springbootlabtest
+  USER_GITLAB: ProteusDev
+  APP_NAME: Bookstore
+  REPO: Bookstore
 
 stages:
   - build
@@ -20,7 +20,11 @@ maven-build:
   script: "mvn clean package -B"
   artifacts:
     paths:
-      - target/*.jar
+      - books/target/*.jar
+      - carts/target/*.jar
+      - orders/target/*.jar
+      - payments/target/*.jar
+      - users/target/*.jar
 
 maven-test:
   image: maven:3-jdk-8
@@ -28,11 +32,15 @@ maven-test:
   script: "mvn test"
   artifacts:
     paths:
-      - target/*.jar
+      - books/target/*.jar
+      - carts/target/*.jar
+      - orders/target/*.jar
+      - payments/target/*.jar
+      - users/target/*.jar
 
 docker-build:
   stage: docker
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build -t registry.gitlab.com/yournameingitlab/springbootlabtest .
-    - docker push registry.gitlab.com/yournameingitlab/springbootlabtest
+    - docker build -t registry.gitlab.com/ProteusDev/Bookstore .
+    - docker push registry.gitlab.com/ProteusDev/Bookstore
