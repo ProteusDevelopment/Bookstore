@@ -11,6 +11,9 @@ variables:
 
 stages:
   - genparent
+  - build
+  - test
+  - docker
 
 genparent:
   image: maven:latest
