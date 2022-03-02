@@ -10,9 +10,12 @@ variables:
   REPO: Bookstore
 
 stages:
-  - build
-  - test
-  - docker
+  - genparent
+
+genparent:
+  image: maven:latest
+  stage: genparent
+  script: "mvn archetype:generate -DgroupId=com.devcher -DartifactId=bookstore"
 
 maven-build:
   image: maven:latest
